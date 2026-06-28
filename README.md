@@ -47,12 +47,12 @@ Projenin başarıyla çalıştığına dair kanıtlar:
 ### 1. Cüzdan Bağlantısı ve Bakiye
 Cüzdanın bağlandığını ve Freighter üzerinden Testnet ağındaki 10,000 XLM bakiyenin başarıyla gösterildiğini kanıtlayan ekran görüntüsü:
 
-![Cüzdan ve Bakiye](./screenshot-balance.png)
+<img width="1907" height="957" alt="Ekran görüntüsü 2026-06-28 184235" src="https://github.com/user-attachments/assets/04cd0fb7-7fe4-4c46-8bb0-393a11daa891" />
 
 ### 2. İşlem Başarısı (Transaction Success)
 10 XLM gönderme işleminin test ağı üzerinden başarıyla onaylandığını (Hash kodu ile birlikte) gösteren ekran görüntüsü:
 
-![İşlem Başarılı](./screenshot-success.png)
+*(İşlem başarılı ekran görüntünüzü buraya yükleyebilirsiniz)*
 
 ---
 Bu proje [@Birgül](https://github.com/BirgulGokturk) tarafından Stellar White Belt Challenge için oluşturulmuştur.
