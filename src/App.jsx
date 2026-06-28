@@ -5,7 +5,7 @@ import './index.css';
 function App() {
   const [address, setAddress] = useState(null);
   const [balance, setBalance] = useState('0.00');
-  const [receiver, setReceiver] = useState('GBDZQRC2Z5D2E4ZMBWBYR76G2Y2S5OEYLIXWIKJ3C6GZJXY3Q5X7G5G6');
+  const [receiver, setReceiver] = useState('GABSZ2GS3R75WOYMQOGD5Z4IPXP6WKFH4H7ZYUMS4UJZ7ZEQV2H6VU4M');
   const [amount, setAmount] = useState('10');
   
   const [status, setStatus] = useState({ type: '', message: '' });

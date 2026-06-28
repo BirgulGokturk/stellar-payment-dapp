@@ -1,5 +1,5 @@
 import { requestAccess, signTransaction } from "@stellar/freighter-api";
-import { Horizon, TransactionBuilder, Networks, Asset, Operation } from "@stellar/stellar-sdk";
+import { Horizon, TransactionBuilder, Networks, Asset, Operation, Memo } from "@stellar/stellar-sdk";
 
 // Use Stellar Testnet Horizon
 const server = new Horizon.Server("https://horizon-testnet.stellar.org");
@@ -71,6 +71,7 @@ export const fundWithFriendbot = async (publicKey) => {
             amount: amount.toString().trim(),
           })
         )
+        .addMemo(Memo.text("Stellar White Belt Task"))
         .setTimeout(100) // 100 seconds timeout
         .build();
 
