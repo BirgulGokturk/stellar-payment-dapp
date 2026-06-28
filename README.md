@@ -88,7 +88,8 @@ Cüzdanın başarıyla bağlandığı ve Testnet bakiyesinin uygulamada gösteri
 ### 2. Successful Transaction & Result Shown to User
 Test ağı üzerinden gönderilen işlemin başarıyla tamamlandığı, işlem detaylarının (Memo dahil) ve sonucunun kullanıcıya gösterildiği an:
 
-*(Freighter Onay Ekranı ve İşlem Başarılı Görüntüsünü Buraya Yükleyiniz)*
+
+<img width="1912" height="956" alt="Ekran görüntüsü 2026-06-28 193339" src="https://github.com/user-attachments/assets/4efbc201-e543-4498-9b60-c8117f9065e6" />
 
 ---
 Bu proje [@Birgül](https://github.com/BirgulGokturk) tarafından Stellar White Belt Challenge için oluşturulmuştur.
