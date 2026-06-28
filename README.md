@@ -42,11 +42,17 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları t
 
 ## 📸 Ekran Görüntüleri
 
-*(Projenin ekran görüntülerini buraya ekleyebilirsiniz)*
+Projenin başarıyla çalıştığına dair kanıtlar:
 
-- **Cüzdan Bağlantı Durumu**: `[Ekran Görüntüsü Yolu]`
-- **Bakiye Gösterimi**: `[Ekran Görüntüsü Yolu]`
-- **İşlem Başarı Mesajı**: `[Ekran Görüntüsü Yolu]`
+### 1. Cüzdan Bağlantısı ve Bakiye
+Cüzdanın bağlandığını ve Freighter üzerinden Testnet ağındaki 10,000 XLM bakiyenin başarıyla gösterildiğini kanıtlayan ekran görüntüsü:
+
+![Cüzdan ve Bakiye](./screenshot-balance.png)
+
+### 2. İşlem Başarısı (Transaction Success)
+10 XLM gönderme işleminin test ağı üzerinden başarıyla onaylandığını (Hash kodu ile birlikte) gösteren ekran görüntüsü:
+
+![İşlem Başarılı](./screenshot-success.png)
 
 ---
-Bu proje [@Birgül](https://github.com/YOUR_GITHUB_USERNAME) tarafından Stellar Front-End Challenge için oluşturulmuştur.
+Bu proje [@Birgül](https://github.com/BirgulGokturk) tarafından Stellar White Belt Challenge için oluşturulmuştur.
