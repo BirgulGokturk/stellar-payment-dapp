@@ -44,8 +44,9 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları t
 
 *(Projenin ekran görüntülerini buraya ekleyebilirsiniz)*
 
-- **Cüzdan Bağlantı Durumu**: `[Ekran Görüntüsü Yolu]`
-- **Bakiye Gösterimi**: `[Ekran Görüntüsü Yolu]`
+
+- **Bakiye Gösterimi**: `<img width="1907" height="957" alt="Ekran görüntüsü 2026-06-28 184235" src="https://github.com/user-attachments/assets/8e9890de-e815-4068-8c0f-bd5fb4218245" />
+`
 - **İşlem Başarı Mesajı**: `[Ekran Görüntüsü Yolu]`
 
 ---
