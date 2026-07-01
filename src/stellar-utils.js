@@ -6,7 +6,7 @@ export const server = new rpc.Server('https://soroban-testnet.stellar.org');
 export const XLM_CONTRACT_ID = 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC';
 const contract = new Contract(XLM_CONTRACT_ID);
 
-export const kit = new StellarWalletsKit({
+StellarWalletsKit.init({
   network: WalletNetwork.TESTNET,
   selectedWalletId: FREIGHTER_ID,
   modules: [new FreighterModule()],
@@ -18,9 +18,9 @@ export const checkFreighterConnection = async () => {
 
 export const connectWallet = async () => {
   try {
-    const publicKey = await kit.getAddress();
-    if (!publicKey) throw new Error("Cüzdan bulunamadı (Wallet not found).");
-    return publicKey;
+    const result = await StellarWalletsKit.authModal();
+    if (!result || !result.address) throw new Error("Cüzdan bulunamadı (Wallet not found).");
+    return result.address;
   } catch (error) {
     throw new Error(error.message || "Bağlantı reddedildi veya hata oluştu.");
   }
@@ -78,17 +78,16 @@ export const sendPayment = async (senderPublicKey, receiverPublicKey, amount) =>
 
     let result;
     try {
-        result = await kit.sign({ xdr: assembledTx.toXDR(), network: WalletNetwork.TESTNET });
+        result = await StellarWalletsKit.signTransaction(assembledTx.toXDR(), { networkPassphrase: Networks.TESTNET });
     } catch (e) {
         throw new Error("Kullanıcı işlemi reddetti (Rejected).");
     }
     
-    if (!result) {
+    if (!result || !result.signedTxXdr) {
        throw new Error("Kullanıcı işlemi reddetti (Rejected).");
     }
-    const signedXdr = typeof result === 'string' ? result : result.signedXDR;
 
-    let signedTx = TransactionBuilder.fromXDR(signedXdr, Networks.TESTNET);
+    let signedTx = TransactionBuilder.fromXDR(result.signedTxXdr, Networks.TESTNET);
     const response = await server.sendTransaction(signedTx);
     
     return { hash: response.hash, status: response.status }; // PENDING
