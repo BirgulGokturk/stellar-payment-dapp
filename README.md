@@ -46,19 +46,20 @@ Görev kapsamında istenilen 3 ana kanıt ekran görüntüsü:
 ### 1. Ana Ekran (Cüzdan Bağlı Değilken)
 *(Wallet not connected state)*
 
-<!-- Lütfen 1. Fotoğrafı (Boş Ekran) buraya sürükleyip bırakın -->
+<img width="320" height="142" alt="download" src="https://github.com/user-attachments/assets/580ed459-5e36-4bc5-8b9b-ed93eb26beeb" />
 
 
 ### 2. Mevcut Cüzdan Seçenekleri (Wallet Options)
 *(StellarWalletsKit menüsünün açıldığı an)*
 
-<!-- Lütfen 2. Fotoğrafı (WalletsKit Menüsü) buraya sürükleyip bırakın -->
+<img width="320" height="160" alt="download" src="https://github.com/user-attachments/assets/4fd5e439-846a-4d9a-b62e-caeb3dde2f54" />
+
 
 
 ### 3. İşlem Başarılı & Sonuç Gösterimi (Successful Transaction)
 *(Cüzdan bağlantısı, bakiye gösterimi ve başarılı transfer mesajı)*
 
-<!-- Lütfen 3. Fotoğrafı (İşlem Başarılı Yeşil Mesaj) buraya sürükleyip bırakın -->
+<img width="320" height="163" alt="download" src="https://github.com/user-attachments/assets/de9638c3-341e-49ea-b216-a839fd6df4f3" />
 
 
 ---
