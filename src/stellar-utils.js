@@ -1,4 +1,5 @@
-import { StellarWalletsKit, WalletNetwork, allowAllModules, FREIGHTER_ID } from '@creit.tech/stellar-wallets-kit';
+import { StellarWalletsKit, Networks as WalletNetwork } from '@creit.tech/stellar-wallets-kit';
+import { FreighterModule, FREIGHTER_ID } from '@creit.tech/stellar-wallets-kit/modules/freighter';
 import { rpc, Contract, Address, nativeToScVal, scValToNative, TransactionBuilder, Account, Networks } from '@stellar/stellar-sdk';
 
 export const server = new rpc.Server('https://soroban-testnet.stellar.org');
@@ -8,7 +9,7 @@ const contract = new Contract(XLM_CONTRACT_ID);
 export const kit = new StellarWalletsKit({
   network: WalletNetwork.TESTNET,
   selectedWalletId: FREIGHTER_ID,
-  modules: allowAllModules(),
+  modules: [new FreighterModule()],
 });
 
 export const checkFreighterConnection = async () => {
@@ -17,11 +18,6 @@ export const checkFreighterConnection = async () => {
 
 export const connectWallet = async () => {
   try {
-    await kit.openModal({
-      onWalletSelected: async (option) => {
-        kit.setWallet(option.id);
-      }
-    });
     const publicKey = await kit.getAddress();
     if (!publicKey) throw new Error("Cüzdan bulunamadı (Wallet not found).");
     return publicKey;
