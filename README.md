@@ -1,60 +1,27 @@
-# Stellar White Belt Level 1 - Simple Payment dApp
+# Stellar White Belt Level 2 - Multi-Wallet Payment Tracker
 
-Bu proje, **Stellar White Belt - Seviye 1** görevi kapsamında geliştirilmiş basit bir ödeme (Payment) dApp'idir. Kullanıcılar **Freighter** cüzdanlarını bağlayarak Stellar Testnet üzerindeki bakiyelerini görüntüleyebilir ve herhangi bir public key'e XLM gönderebilirler.
+Bu proje, **Stellar White Belt - Seviye 2** görevi kapsamında geliştirilmiş, çoklu cüzdan destekli ve doğrudan akıllı sözleşme (Smart Contract) ile etkileşime giren bir ödeme takip dApp'idir.
 
-## 🚀 Özellikler
+## 🚀 Özellikler (Seviye 2)
 
-- **Freighter Cüzdan Entegrasyonu**: Cüzdan bağlama ve bağlantıyı kesme.
-- **Bakiye Sorgulama**: Cüzdan bağlandığında Testnet ağından XLM bakiyesinin anlık gösterimi.
-- **XLM Gönderme**: Testnet üzerinde güvenli bir şekilde XLM gönderme işlemi.
-- **Modern Arayüz**: Glassmorphism ve Dark Mode estetiğiyle şık kullanıcı arayüzü.
-
-## 🛠 Kullanılan Teknolojiler
-
-- [React.js](https://reactjs.org/) (Vite)
-- [Stellar SDK](https://github.com/stellar/js-stellar-sdk)
-- [Freighter API](https://docs.freighter.app/)
-- Vanilla CSS (Glassmorphism)
-
-## 📦 Kurulum ve Çalıştırma
-
-Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları takip edin:
-
-1. Depoyu klonlayın:
-   ```bash
-   git clone <REPO_URL>
-   cd stellar-payment-dapp
-   ```
-
-2. Bağımlılıkları yükleyin:
-   ```bash
-   npm install
-   ```
-
-3. Geliştirme sunucusunu başlatın:
-   ```bash
-   npm run dev
-# Stellar White Belt Level 1 - Simple Payment dApp
-
-Bu proje, **Stellar White Belt - Seviye 1** görevi kapsamında geliştirilmiş basit bir ödeme (Payment) dApp'idir. Kullanıcılar **Freighter** cüzdanlarını bağlayarak Stellar Testnet üzerindeki bakiyelerini görüntüleyebilir ve herhangi bir public key'e XLM gönderebilirler.
-
-## 🚀 Özellikler
-
-- **Freighter Cüzdan Entegrasyonu**: Cüzdan bağlama ve bağlantıyı kesme.
-- **Bakiye Sorgulama**: Cüzdan bağlandığında Testnet ağından XLM bakiyesinin anlık gösterimi.
-- **XLM Gönderme**: Testnet üzerinde güvenli bir şekilde XLM gönderme işlemi.
-- **Modern Arayüz**: Glassmorphism ve Dark Mode estetiğiyle şık kullanıcı arayüzü.
+- **Çoklu Cüzdan Entegrasyonu (StellarWalletsKit)**: Kullanıcılar Freighter, Albedo vb. desteklenen cüzdanlar arasından seçim yaparak bağlanabilir.
+- **Akıllı Sözleşme (Smart Contract) Etkileşimi (Soroban RPC)**: 
+  - Bakiye sorgulamaları, Testnet üzerindeki Native XLM sözleşmesinden (`balance` fonksiyonu) okunur.
+  - Ödemeler klasik işlem olarak değil, Soroban Native Sözleşmesindeki `transfer` fonksiyonu tetiklenerek gerçekleştirilir.
+- **Gelişmiş Hata Yakalama (Error Handling)**: 
+  - Cüzdan bulunamadı.
+  - İşlem kullanıcı tarafından reddedildi (Rejected).
+  - Yetersiz Bakiye (Insufficient Balance - Soroban Simülasyonu ile).
+- **Gerçek Zamanlı Durum Senkronizasyonu (Live Events)**: Akıllı sözleşme üzerindeki transfer olayları (Events) anlık dinlenir ve ekrana yansıtılır. İşlem durumları (Pending -> Success/Fail) takip edilir.
 
 ## 🛠 Kullanılan Teknolojiler
 
 - [React.js](https://reactjs.org/) (Vite)
-- [Stellar SDK](https://github.com/stellar/js-stellar-sdk)
-- [Freighter API](https://docs.freighter.app/)
-- Vanilla CSS (Glassmorphism)
+- [Stellar SDK v12+](https://github.com/stellar/js-stellar-sdk) (Soroban RPC uyumlu)
+- [StellarWalletsKit v2.5.0](https://github.com/Creit-Tech/Stellar-Wallets-Kit)
+- Vanilla CSS (Glassmorphism & Dark Mode)
 
 ## 📦 Kurulum ve Çalıştırma
-
-Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları takip edin:
 
 1. Depoyu klonlayın:
    ```bash
@@ -72,24 +39,27 @@ Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları t
    npm run dev
    ```
 
-4. Tarayıcınızda `http://localhost:5173` (veya terminalde belirtilen adres) adresine gidin.
+## 📸 Ekran Görüntüleri (Screenshots)
 
-> **Not:** Uygulamayı kullanabilmek için tarayıcınızda [Freighter](https://freighter.app/) eklentisinin kurulu olması ve ağ olarak **Testnet**'in seçili olması gerekmektedir. Eğer cüzdanınızda XLM yoksa [Stellar Laboratory](https://laboratory.stellar.org/#account-creator?network=test) üzerinden Friendbot ile Testnet XLM alabilirsiniz.
+Görev kapsamında istenilen 3 ana kanıt ekran görüntüsü:
 
-## 📸 Ekran Görüntüleri
+### 1. Ana Ekran (Cüzdan Bağlı Değilken)
+*(Wallet not connected state)*
 
-Stellar White Belt görevi kapsamında istenen kanıtlar (2 ana ekran görüntüsü ile özetlenmiştir):
-
-### 1. Wallet Connected & Balance Displayed
-Cüzdanın başarıyla bağlandığı ve Testnet bakiyesinin uygulamada gösterildiği an:
-
-<img width="1907" height="957" alt="Ekran görüntüsü" src="https://github.com/user-attachments/assets/04cd0fb7-7fe4-4c46-8bb0-393a11daa891" />
-
-### 2. Successful Transaction & Result Shown to User
-Test ağı üzerinden gönderilen işlemin başarıyla tamamlandığı, işlem detaylarının (Memo dahil) ve sonucunun kullanıcıya gösterildiği an:
+<!-- Lütfen 1. Fotoğrafı (Boş Ekran) buraya sürükleyip bırakın -->
 
 
-<img width="1912" height="956" alt="Ekran görüntüsü 2026-06-28 193339" src="https://github.com/user-attachments/assets/4efbc201-e543-4498-9b60-c8117f9065e6" />
+### 2. Mevcut Cüzdan Seçenekleri (Wallet Options)
+*(StellarWalletsKit menüsünün açıldığı an)*
+
+<!-- Lütfen 2. Fotoğrafı (WalletsKit Menüsü) buraya sürükleyip bırakın -->
+
+
+### 3. İşlem Başarılı & Sonuç Gösterimi (Successful Transaction)
+*(Cüzdan bağlantısı, bakiye gösterimi ve başarılı transfer mesajı)*
+
+<!-- Lütfen 3. Fotoğrafı (İşlem Başarılı Yeşil Mesaj) buraya sürükleyip bırakın -->
+
 
 ---
 Bu proje [@Birgül](https://github.com/BirgulGokturk) tarafından Stellar White Belt Challenge için oluşturulmuştur.
