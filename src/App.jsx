@@ -9,7 +9,7 @@ function App() {
   const [status, setStatus] = useState('');
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const CAMPAIGN_ADDRESS = "GB72WJ4H3YDBL33WJ64K6TKSJOT6V6EHT23ZFRT2E3S5SSTG54C54O3M"; // Dummy campaign address
+  const CAMPAIGN_ADDRESS = "GABSZ2GS3R75WOYMQOGD5Z4IPXP6WKFH4H7ZYUMS4UJZ7ZEQV2H6VU4M"; // Valid dummy address
 
   const handleConnect = async () => {
     try {
