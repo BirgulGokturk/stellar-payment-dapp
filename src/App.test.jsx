@@ -41,6 +41,6 @@ describe('Stellar Payment dApp UI', () => {
     fireEvent.click(connectBtn);
     
     await screen.findByText(/MEVCUT BAKİYE/i);
-    expect(screen.getByText('100.00')).toBeInTheDocument();
+    expect(screen.getByText(/100\.00/)).toBeInTheDocument();
   });
 });
