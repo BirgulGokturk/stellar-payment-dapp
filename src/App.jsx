@@ -34,12 +34,12 @@ function App() {
       setStatus(`İşlem Ağda İşleniyor... Hash: ${hash}`);
       
       const finalStatus = await pollTransactionStatus(hash);
-      if (finalStatus === "SUCCESS") {
+      if (finalStatus.status === "SUCCESS") {
          setStatus(`🎉 Destek Başarılı! İşlem Hash: ${hash}`);
          const newBal = await getBalance(address);
          setBalance(newBal);
       } else {
-         setStatus(`❌ İşlem Başarısız: ${finalStatus}`);
+         setStatus(`❌ İşlem Başarısız: ${finalStatus.status}`);
       }
     } catch (error) {
       setStatus(`Hata: ${error.message}`);
