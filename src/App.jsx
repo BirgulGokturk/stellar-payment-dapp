@@ -1,171 +1,132 @@
 import { useState, useEffect } from 'react';
-import { connectWallet, getBalance, sendPayment, pollTransactionStatus, fetchRecentEvents, scValToNative } from './stellar-utils';
+import { connectWallet, getBalance, sendPayment, pollTransactionStatus, fetchRecentEvents } from './stellar-utils';
 import './index.css';
 
 function App() {
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState('');
   const [balance, setBalance] = useState('0.00');
-  const [receiver, setReceiver] = useState('GABSZ2GS3R75WOYMQOGD5Z4IPXP6WKFH4H7ZYUMS4UJZ7ZEQV2H6VU4M');
-  const [amount, setAmount] = useState('10');
-  const [status, setStatus] = useState({ type: '', message: '' });
-  const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState('');
+  const [status, setStatus] = useState('');
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const CAMPAIGN_ADDRESS = "GB72WJ4H3YDBL33WJ64K6TKSJOT6V6EHT23ZFRT2E3S5SSTG54C54O3M"; // Dummy campaign address
 
   const handleConnect = async () => {
     try {
-      const addr = await connectWallet();
-      setAddress(addr);
-      const bal = await getBalance(addr);
+      setIsLoading(true);
+      const pubKey = await connectWallet();
+      setAddress(pubKey);
+      const bal = await getBalance(pubKey);
       setBalance(bal);
     } catch (error) {
-      alert("Cüzdan bağlanamadı: " + error.message);
-    }
-  };
-
-  const handleDisconnect = () => {
-    setAddress(null);
-    setBalance('0.00');
-    setStatus({ type: '', message: '' });
-  };
-
-  const handleSend = async (e) => {
-    e.preventDefault();
-    if (!address) {
-      setStatus({ type: 'error', message: 'Lütfen önce cüzdanınızı bağlayın.' });
-      return;
-    }
-    
-    setIsLoading(true);
-    setStatus({ type: '', message: '' });
-
-    try {
-      const response = await sendPayment(address, receiver, amount);
-      if (response.status === 'PENDING') {
-        setStatus({ type: 'info', message: 'İşlem gönderildi, onay bekleniyor... Lütfen bekleyin.' });
-        
-        // Poll for success
-        const finalStatus = await pollTransactionStatus(response.hash);
-        
-        if (finalStatus.status === 'SUCCESS') {
-           setStatus({ type: 'success', message: `İşlem Başarılı! Hash: ${response.hash}` });
-           // Refresh balance
-           const newBal = await getBalance(address);
-           setBalance(newBal);
-        } else {
-           setStatus({ type: 'error', message: `İşlem Başarısız (Durum: ${finalStatus.status})` });
-        }
-      }
-    } catch (error) {
-      setStatus({ type: 'error', message: error.message });
+      alert(error.message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Event Polling effect
+  const handlePledge = async () => {
+    if (!amount) return alert("Lütfen bir miktar girin.");
+    try {
+      setIsLoading(true);
+      setStatus("Cüzdanda Onay Bekleniyor / Ağ Onayı Bekleniyor...");
+      const { hash } = await sendPayment(address, CAMPAIGN_ADDRESS, amount);
+      setStatus(`İşlem Ağda İşleniyor... Hash: ${hash}`);
+      
+      const finalStatus = await pollTransactionStatus(hash);
+      if (finalStatus === "SUCCESS") {
+         setStatus(`🎉 Destek Başarılı! İşlem Hash: ${hash}`);
+         const newBal = await getBalance(address);
+         setBalance(newBal);
+      } else {
+         setStatus(`❌ İşlem Başarısız: ${finalStatus}`);
+      }
+    } catch (error) {
+      setStatus(`Hata: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (!address) return;
     const interval = setInterval(async () => {
-       const recent = await fetchRecentEvents();
-       if (recent && recent.length > 0) {
-           setEvents(recent);
-       }
-    }, 10000); // Poll every 10 seconds
+      const recent = await fetchRecentEvents();
+      setEvents(recent);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [address]);
+  }, []);
 
   return (
     <div className="container">
       <header className="header">
-        <h1 className="logo">Stellar<span>Pay</span></h1>
-        {address ? (
-          <button className="btn btn-outline" onClick={handleDisconnect}>
-            Bağlantıyı Kes
+        <h1 className="logo">StellarFund (Seviye 3)</h1>
+        {!address ? (
+          <button className="btn" onClick={handleConnect} disabled={isLoading}>
+            {isLoading ? "Bağlanıyor..." : "Cüzdan Bağla (WalletsKit)"}
           </button>
         ) : (
-          <button className="btn" onClick={handleConnect}>
-            Cüzdan Bağla (WalletsKit)
-          </button>
+          <button className="btn btn-outline" onClick={() => setAddress('')}>Bağlantıyı Kes</button>
         )}
       </header>
 
-      <main className="main-content">
-        {!address ? (
-          <div className="card empty-state">
-            <div className="icon">🔒</div>
-            <p>Çoklu Cüzdan uygulamasını kullanmak için cüzdanınızı bağlayın.</p>
-          </div>
-        ) : (
-          <div className="dashboard">
-            <div className="card balance-card">
-              <h3>MEVCUT BAKİYE (TESTNET XLM SOROBAN) 🔃</h3>
-              <div className="balance-amount">{balance} <span>XLM</span></div>
-              <div className="wallet-badge">
-                <span className="icon">💳</span> {address.substring(0, 6)}...{address.slice(-4)}
+      {!address && (
+        <div className="welcome">
+          <p>🔒</p>
+          <p>Stellar ağı üzerinde merkeziyetsiz kitle fonlaması dApp'i.</p>
+        </div>
+      )}
+
+      {address && (
+        <div className="dashboard">
+          <div className="card">
+            <h3>MEVCUT BAKİYE (TESTNET XLM)</h3>
+            <h2 className="balance">{balance} XLM</h2>
+            <p className="address-display">💳 {address.slice(0,6)}...{address.slice(-4)}</p>
+            
+            <div className="form-group" style={{ marginTop: '2rem' }}>
+              <label>Hedef Proje Adresi</label>
+              <input type="text" value={CAMPAIGN_ADDRESS} disabled className="input" />
+            </div>
+            <div className="form-group">
+              <label>Destek Miktarı (XLM)</label>
+              <input 
+                type="number" 
+                value={amount} 
+                onChange={(e) => setAmount(e.target.value)} 
+                className="input" 
+                placeholder="Örn: 50"
+                disabled={isLoading}
+              />
+            </div>
+            
+            <button className="btn btn-full" onClick={handlePledge} disabled={isLoading}>
+              {isLoading ? "İşleniyor..." : "🚀 Projeyi Destekle (Pledge)"}
+            </button>
+            
+            {status && (
+              <div className="status-message">
+                {status}
               </div>
-            </div>
-
-            <div className="card transfer-card">
-              <form onSubmit={handleSend}>
-                <div className="input-group">
-                  <label>Alıcı Adresi (Public Key)</label>
-                  <input 
-                    type="text" 
-                    placeholder="G..." 
-                    value={receiver}
-                    onChange={(e) => setReceiver(e.target.value)}
-                    required
-                  />
-                </div>
-                
-                <div className="input-group">
-                  <label>Miktar (XLM)</label>
-                  <input 
-                    type="number" 
-                    placeholder="0.00" 
-                    min="1"
-                    step="0.0000001"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="btn" 
-                  style={{ width: '100%' }}
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Cüzdanda Onay Bekleniyor / Ağ Onayı Bekleniyor...' : 'Gönder (Soroban Transfer)'}
-                </button>
-              </form>
-              
-              {status.message && (
-                <div className={`status-message ${status.type}`}>
-                  {status.message}
-                </div>
-              )}
-            </div>
-
-            <div className="card events-card">
-                <h3>Son Testnet Transfer Olayları (Live Stream)</h3>
-                {events.length === 0 ? (
-                    <p style={{color: '#888'}}>Henüz yeni olay yok...</p>
-                ) : (
-                    <ul className="event-list">
-                        {events.map((ev, i) => (
-                           <li key={i} className="event-item">
-                               <small>Ledger: {ev.ledger}</small><br/>
-                               {ev.id}
-                           </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            )}
           </div>
-        )}
-      </main>
+
+          <div className="card events-card">
+            <h3>Son Destek Olayları (Live Stream)</h3>
+            {events.length === 0 ? (
+              <p style={{ opacity: 0.7 }}>Henüz yeni olay yok...</p>
+            ) : (
+              <div className="event-list">
+                {events.map((ev, i) => (
+                  <div key={i} className="event-item">
+                    <span className="event-type">{ev.type}</span>
+                    <span className="event-amount">{ev.amount} XLM</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
