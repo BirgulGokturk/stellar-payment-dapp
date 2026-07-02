@@ -52,17 +52,17 @@ Görev kapsamında istenilen kanıtlar aşağıda listelenmiştir:
 ### 1. Mobil Uyumlu Arayüz (Mobile Responsive UI)
 *(Uygulamanın mobil cihazdaki görünümü)*
 
-<!-- Lütfen 1. Fotoğrafı buraya sürükleyip bırakın -->
+<!-- Lütfen Mobil Ekran Görüntüsünü buraya sürükleyip bırakın -->
 
 ### 2. CI/CD Pipeline Çalışıyor (GitHub Actions)
 *(GitHub Actions sekmesindeki başarılı deployment)*
 
-<!-- Lütfen 2. Fotoğrafı buraya sürükleyip bırakın -->
+<!-- Lütfen CI/CD Ekran Görüntüsünü buraya sürükleyip bırakın -->
 
 ### 3. Test Sonuçları (3+ Passing Tests)
 *(Rust veya Vitest'in yeşil tikli test sonuçları)*
 
-<!-- Lütfen 3. Fotoğrafı buraya sürükleyip bırakın -->
+<!-- Lütfen Test Sonuçları Ekran Görüntüsünü buraya sürükleyip bırakın -->
 
 ### 🎥 Demo Video (1-2 Dakika)
 *(Uygulamanın kullanımını ve kodları gösteren YouTube/Loom linki)*
