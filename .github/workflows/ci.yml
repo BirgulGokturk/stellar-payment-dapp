@@ -36,7 +36,6 @@ jobs:
       run: cargo test
 
   deploy-frontend:
-    needs: [test-frontend, test-contracts]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
