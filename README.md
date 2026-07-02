@@ -52,17 +52,19 @@ Görev kapsamında istenilen kanıtlar aşağıda listelenmiştir:
 ### 1. Mobil Uyumlu Arayüz (Mobile Responsive UI)
 *(Uygulamanın mobil cihazdaki görünümü)*
 
-<!-- Lütfen Mobil Ekran Görüntüsünü buraya sürükleyip bırakın -->
+<img width="946" height="2048" alt="WhatsApp Image 2026-07-02 at 12 20 17" src="https://github.com/user-attachments/assets/ddb6ffe5-aa5e-4530-bd71-40a20f64f816" />
+
 
 ### 2. CI/CD Pipeline Çalışıyor (GitHub Actions)
 *(GitHub Actions sekmesindeki başarılı deployment)*
 
-<!-- Lütfen CI/CD Ekran Görüntüsünü buraya sürükleyip bırakın -->
+<img width="1887" height="938" alt="Ekran görüntüsü 2026-07-02 121623" src="https://github.com/user-attachments/assets/a826fbf0-4956-4ae5-9e84-4e6b8d553c14" />
+
 
 ### 3. Test Sonuçları (3+ Passing Tests)
 *(Rust veya Vitest'in yeşil tikli test sonuçları)*
 
-<!-- Lütfen Test Sonuçları Ekran Görüntüsünü buraya sürükleyip bırakın -->
+<img width="1888" height="976" alt="Ekran görüntüsü 2026-07-02 121931" src="https://github.com/user-attachments/assets/d5b99823-6e13-443b-ba7c-46ce67973655" />
 
 ### 🎥 Demo Video (1-2 Dakika)
 *(Uygulamanın kullanımını ve kodları gösteren YouTube/Loom linki)*
