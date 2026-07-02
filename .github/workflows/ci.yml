@@ -31,8 +31,6 @@ jobs:
         target: wasm32-unknown-unknown
         profile: minimal
         override: true
-    - name: Install Soroban CLI
-      run: cargo install --locked soroban-cli
     - name: Run Contract Tests
       working-directory: ./contracts/crowdfund
       run: cargo test
