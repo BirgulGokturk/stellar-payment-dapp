@@ -67,9 +67,11 @@ Görev kapsamında istenilen kanıtlar aşağıda listelenmiştir:
 <img width="1888" height="976" alt="Ekran görüntüsü 2026-07-02 121931" src="https://github.com/user-attachments/assets/d5b99823-6e13-443b-ba7c-46ce67973655" />
 
 ### 🎥 Demo Video (1-2 Dakika)
-*(Uygulamanın kullanımını ve kodları gösteren YouTube/Loom linki)*
 
-[👉 Videoyu İzlemek İçin Tıklayın](YOUR_VIDEO_LINK_HERE)
+https://drive.google.com/file/d/1QbS9LVsAA1xhJVNKIRUy4FoxC9IbL04q/view?usp=sharing
+
+
+
 
 ---
 Bu proje [@Birgül](https://github.com/BirgulGokturk) tarafından Stellar Orange Belt Challenge için oluşturulmuştur.
