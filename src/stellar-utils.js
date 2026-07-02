@@ -1,6 +1,6 @@
 import { StellarWalletsKit, Networks as WalletNetwork } from '@creit.tech/stellar-wallets-kit';
 import { FreighterModule, FREIGHTER_ID } from '@creit.tech/stellar-wallets-kit/modules/freighter';
-import { rpc, Contract, Address, nativeToScVal, scValToNative, TransactionBuilder, Account, Networks } from '@stellar/stellar-sdk';
+import { rpc, Contract, Address, nativeToScVal, scValToNative, TransactionBuilder, Account, Networks, Operation, Asset } from '@stellar/stellar-sdk';
 
 export const server = new rpc.Server('https://soroban-testnet.stellar.org');
 export const XLM_CONTRACT_ID = 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC';
@@ -52,33 +52,23 @@ export const getBalance = async (publicKey) => {
 
 export const sendPayment = async (senderPublicKey, receiverPublicKey, amount) => {
   try {
-    const amountInStroops = BigInt(Math.floor(parseFloat(amount) * 10000000));
-    const senderAddress = Address.fromString(senderPublicKey);
-    const receiverAddress = Address.fromString(receiverPublicKey);
-
-    const rawTx = new TransactionBuilder(new Account(senderPublicKey, "1"), {
+    const account = await server.getAccount(senderPublicKey);
+    
+    const rawTx = new TransactionBuilder(account, {
       fee: "100",
       networkPassphrase: Networks.TESTNET,
     })
-    .addOperation(contract.call(
-      'transfer', 
-      nativeToScVal(senderAddress, { type: 'address' }),
-      nativeToScVal(receiverAddress, { type: 'address' }),
-      nativeToScVal(amountInStroops, { type: 'i128' })
-    ))
+    .addOperation(Operation.payment({
+      destination: receiverPublicKey,
+      asset: Asset.native(),
+      amount: amount.toString()
+    }))
     .setTimeout(100)
     .build();
 
-    let assembledTx;
-    try {
-        assembledTx = await server.prepareTransaction(rawTx);
-    } catch (e) {
-        throw new Error("Simülasyon başarısız oldu. Yetersiz bakiye (Insufficient Balance) olabilir.");
-    }
-
     let result;
     try {
-        result = await StellarWalletsKit.signTransaction(assembledTx.toXDR(), { networkPassphrase: Networks.TESTNET });
+        result = await StellarWalletsKit.signTransaction(rawTx.toXDR(), { networkPassphrase: Networks.TESTNET });
     } catch (e) {
         throw new Error("Kullanıcı işlemi reddetti (Rejected).");
     }
