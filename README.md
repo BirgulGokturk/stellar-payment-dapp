@@ -19,8 +19,8 @@ Bu proje, **Stellar Orange Belt - Seviye 3** görevi kapsamında tam kapsamlı, 
 
 ## 📜 Sözleşme Detayları (Contract Info)
 - **Ağ:** Stellar Testnet
-- **Contract ID:** *(TBD - Deployment tamamlandığında eklenecektir)*
-- **Örnek İşlem Hash (Transaction Hash):** *(TBD - İşlem yapıldığında eklenecektir)*
+- **Contract ID:** `CCEOJGF2SPKQKKTUBI7UUASGNEPJWHFI2JNKHESJU7Z2ES5VN5AXLU2I`
+- **Örnek İşlem Hash (Transaction Hash):** `3b71bfb485fe7c6f0be639d4765c10759b866f1d918d1fa8b1dd629d972b8119` (Init transaction)
 
 ## 🛠 Kullanılan Teknolojiler
 - Akıllı Sözleşme: Rust, Soroban SDK
