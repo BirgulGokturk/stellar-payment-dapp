@@ -25,12 +25,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: wasm32-unknown-unknown
-        profile: minimal
-        override: true
+      run: |
+        rustup default stable
+        rustup target add wasm32-unknown-unknown
     - name: Run Contract Tests
       working-directory: ./contracts/crowdfund
       run: cargo test
@@ -42,18 +39,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        target: wasm32-unknown-unknown
-        profile: minimal
-        override: true
+      run: |
+        rustup default stable
+        rustup target add wasm32-unknown-unknown
     - name: Build Contract
       working-directory: ./contracts/crowdfund
       run: |
         cargo build --target wasm32-unknown-unknown --release > build_output.txt 2>&1 || true
     - name: Upload Build Log
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: build-log
         path: contracts/crowdfund/build_output.txt
@@ -63,7 +57,8 @@ jobs:
         cp contracts/crowdfund/build_output.txt ./ || true
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add -f stellar_crowdfund.wasm build_output.txt || true
+        git add -f stellar_crowdfund.wasm || true
+        git add -f build_output.txt || true
         git commit -m "chore: Build and add stellar_crowdfund.wasm [skip ci]" || echo "No changes"
         git push
 
